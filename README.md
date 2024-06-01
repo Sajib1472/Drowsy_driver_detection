@@ -44,6 +44,70 @@ This project leverages the capabilities of the ESP32 and ESP8266 microcontroller
 3. **Connect Hardware**:
    - Connect the ESP32, ESP8266, and Arduino according to the provided schematic.
 
+## Schematic Diagram:
+              +----------------+
+           |    ESP8266     |
+           |                |
+           |   D1 (BUZZER)  |------> Buzzer
+           |                |
+           |   GPIO2        |------> Arduino Uno Pin 2
+           +----------------+
+                     |
+                     |
+                     v
+           +----------------+
+           |   Arduino Uno  |
+           |                |
+           |  D2 <----------|---+
+           |                |   |
+           |  D9 (ENA)      |---|--> L293D Pin 1 (ENA)
+           |  D8 (IN1)      |---|--> L293D Pin 2 (IN1)
+           |  D7 (IN2)      |---|--> L293D Pin 7 (IN2)
+           |  D6 (ENB)      |---|--> L293D Pin 9 (ENB)
+           |  D12 (IN3)     |---|--> L293D Pin 10 (IN3)
+           |  D11 (IN4)     |---|--> L293D Pin 15 (IN4)
+           |                |
+           |  GND           |---|--> L293D Pins 4, 5, 12, 13 (GND)
+           |  5V            |---|--> L293D Pins 8, 16 (VCC)
+           +----------------+
+                     |
+                     |
+                     v
+           +----------------+
+           |    L293D IC    |
+           |                |
+           | Motor A        |
+           |  Pin 3 (OUT1)  |---|--> Motor A Terminal 1
+           |  Pin 6 (OUT2)  |---|--> Motor A Terminal 2
+           |                |
+           | Motor B        |
+           |  Pin 11 (OUT3) |---|--> Motor B Terminal 1
+           |  Pin 14 (OUT4) |---|--> Motor B Terminal 2
+           +----------------+
+           
+## Detailed Steps:
+1. **Connect the ESP8266 to the Arduino Uno:**
+   - Connect ESP8266 GPIO2 to Arduino digital pin 2.
+   - Connect ESP8266 D1 to the positive leg of the buzzer and the negative leg to GND.
+
+2. **Connect the Arduino Uno to the L293D Motor Driver:**
+   - Arduino digital pin 9 to L293D ENA (Pin 1).
+   - Arduino digital pin 8 to L293D IN1 (Pin 2).
+   - Arduino digital pin 7 to L293D IN2 (Pin 7).
+   - Arduino digital pin 6 to L293D ENB (Pin 9).
+   - Arduino digital pin 12 to L293D IN3 (Pin 10).
+   - Arduino digital pin 11 to L293D IN4 (Pin 15).
+   - Arduino GND to L293D GND pins (4, 5, 12, 13).
+   - Arduino 5V to L293D VCC pins (8, 16).
+
+3. **Connect the DC Motors to the L293D Motor Driver:**
+   - Connect Motor A to L293D output pins 3 and 6.
+   - Connect Motor B to L293D output pins 11 and 14.
+
+## Power Supply:
+1. Ensure that the Arduino Uno is powered via USB or an external power supply.
+2. Ensure the L293D is properly powered with 5V and GND connections.
+
 ## Usage
 1. Power on the system.
 2. The ESP32 will start capturing and processing images of the driver.
